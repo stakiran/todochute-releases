@@ -23,6 +23,8 @@ Windows + Firefox で動作確認をしています。他の OS やブラウザ�
 
 ![howto_enable_localstorage_firefox.jpg](img/howto_enable_localstorage_firefox.jpg)
 
+詳細: [Cookie を有効または無効にする | Firefox ヘルプ](https://support.mozilla.org/ja/kb/enable-and-disable-cookies-website-preferences)
+
 ## 作者
 stakiran
 
