@@ -23,4 +23,4 @@ TaskChute2:
 - [TaskChute スタートアップガイド.pdf](https://cyblog.biz/file/TC2StartupGuide.pdf)
 
 ## 使い方
-[トップページ](../index.html) にアクセスしていただき、動作環境などを確認した上でリリースページにアクセスしてください。
+[トップページ](index.html) にアクセスしていただき、動作環境などを確認した上でリリースページにアクセスしてください。
