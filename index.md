@@ -12,9 +12,16 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
   - データはローカルストレージに保存されます
 
 ## 動作環境
-Windows + Firefox で動作確認をしています。
+Windows + Firefox で動作確認をしています。他の OS やブラウザで動くかどうかはわかりません。
 
-他の OS やブラウザで動くかどうかはわかりません。
+なお、データの保存にはローカルストレージを使用していますので、ブラウザの設定で Cookie を有効にしないと保存されません。
+
+### todochute 設定のみ例外的に許可する
+普段 Cookie を無効にされている方は、Firefox v65 の場合、例外的に本サイトを許可対象にすることで保存できるようになります。
+
+設定 > プライバシーとセキュリティ > Cookie とサイトデータ > サイトの設定を管理より `https://stakiran.github.io/todochute-releases/` を追加して許可してください。
+
+![howto_enable_localstorage_firefox.jpg](img/howto_enable_localstorage_firefox.jpg)
 
 ## 作者
 stakiran
