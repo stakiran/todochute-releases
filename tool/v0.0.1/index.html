@@ -1,0 +1,62 @@
+<html>
+<head>
+  <title>todochute</title>
+  <meta charset="UTF-8">
+
+  <script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./lib/moment.js"></script>
+
+  <script type="text/javascript" src="./modules.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
+
+  <link rel="stylesheet" href="./main.css" />
+
+</head>
+
+<body>
+  <div>
+    <textarea wrap="off" id="editspace"></textarea>
+  </div>
+  <p id='infobar'></p>
+  <pre id="shortcutkey_sheet">
+======== Shortcut key cheet sheet ========
+[Basic]
+Alt + S: (S)ort
+Alt + X: toggle DONE-TODO / toggle (X) mark
+
+[CRUD task]
+Alt + A  : (A)dd  task
+Alt + C  : (C)opy task
+Alt + Del: (D)elete task
+
+[Date]
+Alt + W: (W)alk creation date with dialog input
+Alt + E: change creation date to tomorrow / walk +1 / the right side of (W) key
+Alt + T: change creation date to (T)oday
+
+[Priority]
+Alt + P: change (P)riority with dialog input
+Alt + J: change priority to next / A→B→C→... / (J) of vim like cursor hjkl
+Alt + K: change priority to prev / C→B→A→... / (K) of vim like cursor hjkl
+  </pre>
+  <pre id="specification_sheet">
+======== Specifications ========
+[Date field combinations]
+Completion  Creation    Status    Note
+----------||----------||--------||--------
+-           -           Invalid   Because creation-date field must be required in this tool.
+-           2019-01-01  TODO      This task was added on 2019-01-01, but not completed yet.
+2019-01-01  -           Invalid   Because creation-date field must be required in this tool.
+2019-01-01  2019-01-01  DONE1     This task was added on 2019-01-01, and completed on the same day.
+2019-01-01  2019-01-02  DONE2     This task was planned to be done on 2019-01-02,
+                                  but actually completed on and before the day.
+2019-01-02  2019-01-01  DONE3     This task was added on 2019-01-01, and completed on and after the day.
+
+[Data storing]
+* Use the local storage(one of client storage your browser has).
+  See https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+* If the url or client changes, the data is not to be accessible.
+* Saving timing is on sorting(Alt + S).
+  </pre>
+</body>
+</html>

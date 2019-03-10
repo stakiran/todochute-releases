@@ -1,0 +1,22 @@
+#editspace {
+  border : 1px solid blue;
+  padding: 0px;
+  margin : 0px;
+
+  /* 初期値は適当だが
+    - font size は大きすぎず小さすぎずな 16px
+    - height は 10 行分
+  */
+  width      : 100%;
+  height     : 182px;
+  line-height: 18px;
+  font-size  : 16px;
+
+  /* not supported in IE. */
+  caret-color: red;
+}
+
+#shortcutkey_sheet li {
+  font-family: monospace;
+  font-size: 14px;
+}
