@@ -20,11 +20,22 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
 - 詳しいショートカットキーや見方はツール画面下部のチートシートをご覧ください
 
 ## 動作環境
-Windows + Firefox で動作確認をしています。他の OS やブラウザで動くかどうかはわかりません。
+以下環境で動作確認しています。
+
+- Windows 7 + Firefox v65
+- Windows 10 + Firefox v65
+- MacOS 10.14(Mojave) + Firefox v65
+
+以下環境では動作しません。
+
+- Internet Explorer 11
+- Safari
+
+他の OS やブラウザで動くかどうかはわかりません。
 
 なお、データの保存にはローカルストレージを使用していますので、ブラウザの設定で Cookie を有効にしないと保存されません。
 
-### todochute 設定のみ例外的に許可する
+### Firefox で todochute のみ例外的に許可する
 普段 Cookie を無効にされている方は、Firefox v65 の場合、例外的に本サイトを許可対象にすることで保存できるようになります。
 
 設定 > プライバシーとセキュリティ > Cookie とサイトデータ > サイトの設定を管理より `https://stakiran.github.io/todochute-releases/` を追加して許可してください。
