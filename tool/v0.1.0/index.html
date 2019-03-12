@@ -1,0 +1,121 @@
+<html>
+<head>
+  <title>todochute</title>
+  <meta charset="UTF-8">
+
+  <script type="text/javascript" src="./lib/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./lib/moment.js"></script>
+
+  <script type="text/javascript" src="./modules.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
+
+  <link rel="stylesheet" href="./main.css" />
+
+</head>
+
+<body>
+  <button id="button_to_open_tasklist">TaskList</button>
+  <button id="button_to_open_config">Config</button>
+  <button id="button_to_reset_config">Reset</button>
+  <div id="ta_tasklist_wrapper">
+    <textarea wrap="off" id="ta_tasklist"></textarea>
+  </div>
+  <div id="ta_config_wrapper">
+    <textarea wrap="off" id="ta_config"></textarea>
+  </div>
+  <p id='infobar'></p>
+  <pre id="shortcutkey_sheet">
+======== ショートカットキー ========
+
+[基本]
+Alt + S: ソート(並び替え) / 'S'ort
+Alt + X: タスクの終了 / toggle 'X' mark(X印を付ける→付けないの切替)
+         Shift + Enter でも可
+
+[タスクの追加削除]
+Alt + A  : タスクの追加 / 'A'dd task
+Alt + C  : タスクの複製 / 'C'opy task
+Alt + Del: タスクの削除 / 'Del'ete task(Alt+D はアドレスバーフォーカスで固定なので利用できず)
+
+[優先度]
+Alt + P: 優先度を変える / change 'P'riority
+Alt + J: 優先度を一つ下げる / A→B→C→... / J は Vim の hjkl カーソルの j
+Alt + K: 優先度を一つ上げる / C→B→A→... / K は Vim の hjkl カーソルの k
+  </pre>
+  <pre id="specification_sheet">
+======== 主な仕様について ========
+
+[タスクのフォーマット]
+x (A) 2019-03-11 2019-03-11 Taskname
+- --- ---------- ---------- --------
+1 2   3          4          5
+
+  1 完了マーク。完了したタスクには x がつく。未完了だと何もつかない。
+  2 優先度。一文字で表す。半角スペース、A、B、C、……、Z、_ の順で優先度が高い。
+  3 完了日。タスクを完了した日。未完了だと何もつかない。YYYY-MM-DD フォーマット。
+  4 追加日。タスクを追加した日。実行日ではない。YYYY-MM-DD フォーマット。
+  5 タスク名。タスクの名前や内容。フリーフォーマット。
+
+[有効なタスク]
+今日が 2019-03-11 だとする。
+  (_)            2019-03-10 昨日追加した
+  (_)            2019-03-11 今日追加した
+x (A) 2019-03-11 2019-03-11 今日追加して今日完了した(優先度高い)
+x (_) 2019-03-11 2019-03-10 昨日追加して今日完了した(優先度低い)
+x (_) 2019-03-11 2019-03-11 今日追加して今日完了した(優先度低い)
+x (_) 2019-03-11            ★これはありえない(追加日は必ず必要)
+x (_)                       ★これはありえない(追加日は必ず必要)
+
+[タスクの並び順]
+ルール1 > 2 > 3 > 4 の順で効力が強い。
+
+  - ルール1: 未完了タスクは完了タスクよりも上に来る
+  - ルール2: 優先度の高いタスクは優先度の低いタスクよりも上に来る
+  - ルール3: 完了日の古いタスクは完了日の新しいタスクよりも上に来る
+  - ルール3: 追加日の古いタスクは追加日の新しいタスクよりも上に来る
+
+[タスクの並び順(直感的な説明)]
+
+  - 完了よりも未完了が重要なので、未完了が上に来る
+  - 優先度は高いほど重要なので、高い方が上に来る
+  - 古いタスクは早く対処するべきなので、追加日の古いタスクは上に来る
+
+[データ保存のタイミング]
+ソートした時(Alt+Sを押した時)。
+
+[データ保存について]
+ローカルストレージを使用。
+
+  - ローカルストレージ = ブラウザが持つ保存領域(Cookieやキャッシュと同じ)
+    - 通信を発生させてサーバー上に保存しているわけではない
+  - 保存先は「使っているブラウザ + URL」の単位で確保されている
+    - ブラウザまたは URL が変われば、データは引き継がれない
+  - ブラウザ側の設定を有効にしないと使えないことがある
+  </pre>
+  <pre id="howto_config_sheet">
+======== 設定(Config)について ========
+
+※開発中につき一部の設定は再読込しないと反映しません or 動作しません。
+
+[設定の編集方法]
+JSON というデータ構造で記されています。
+この構造を崩さないように各種値を書き換えてください。
+JSON 構造が正しいかどうかのチェックには以下サイトが役立ちます。
+  => JSONLint - The JSON Validator
+     https://jsonlint.com/
+JSON 構造の解説についてはこちらが参考になります。
+  => JSON の紹介
+     https://www.json.org/json-ja.html
+
+[設定が保存されるタイミング]
+タスクリストに切り替えた時。
+
+[設定の保存先]
+タスクと同様、ローカルストレージに保存します。
+
+[todochute が動かなくなった場合]
+設定が壊れている可能性があります。
+Reset ボタンより初期設定にリセットすることで解決することがあります。
+  </pre>
+</body>
+</html>

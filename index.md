@@ -4,14 +4,17 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
 ![todochute_image.jpg](img/todochute_image.jpg)
 
 ## リリース
+- 2019/03/12 [v0.1.0](tool/v0.1.0/index.html)
+  - まだまだ未完成ですが、ヘルプテキストと設定画面の拡充を行いました。
 - 2019/03/10 [v0.0.1](tool/v0.0.1/index.html)
   - まだまだ未完成ですが、どんな感じなのかは体感していただけると思います。
 - [更新履歴](tool/changelog.md)
 
 ## ドキュメント
 - [todochute 概要](todochute_overview.md)
+- 少しずつ充実させていきます...
 
-(v0.0.1 時点) 五行で解説:
+5行解説:
 
 - ブラウザから使えます
 - 一行一タスクです
@@ -45,6 +48,4 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
 詳細: [Cookie を有効または無効にする - Firefox ヘルプ](https://support.mozilla.org/ja/kb/enable-and-disable-cookies-website-preferences)
 
 ## 作者
-stakiran
-
-- [ウェブサイト](https://stakiran.github.io/stakiran/)
+[stakiran](https://stakiran.github.io/stakiran/)
