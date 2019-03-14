@@ -4,6 +4,10 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
 ![todochute_image.jpg](img/todochute_image.jpg)
 
 ## リリース
+- 2019/03/14 [v0.2.0](v0.2.0/index.html)
+  - まだまだ未完成ですが、コンテキストタグとプロジェクトタグを追加できるようにしました。
+  - **v0.1.0以前からバージョンアップする場合、いったん Reset を行わないと動作しません**
+    - 詳しくは [こちら](notice_about_verup.md)
 - 2019/03/12 [v0.1.0](tool/v0.1.0/index.html)
   - まだまだ未完成ですが、ヘルプテキストと設定画面の拡充を行いました。
 - 2019/03/10 [v0.0.1](tool/v0.0.1/index.html)

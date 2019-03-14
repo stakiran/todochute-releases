@@ -1,0 +1,44 @@
+#ta_tasklist {
+  border : 1px solid blue;
+  padding: 0px;
+  margin : 0px;
+
+  /* 初期値は大きすぎず小さすぎずで適当な値.
+     ただし line-height はフォントサイズ変更に備えて em 相対指定.
+     1.1 ← 狭すぎて窮屈
+     1.2 ← この辺が良さげ
+     1.3 ← 広すぎて不格好
+  */
+  width      : 100%;
+  height     : 182px;
+  line-height: 1.2em;
+  font-size  : 16px;
+
+  /* not supported in IE. */
+  caret-color: red;
+}
+
+#ta_config {
+  border : 1px solid orange;
+  padding: 0px;
+  margin : 0px;
+
+  /* 適当だが TaskList と合わせた方が視覚的ノイズが少ないので合わせておく.
+     (既に TaskList のフォントサイズを変えている場合は度外視)
+  */
+  width      : 100%;
+  height     : 182px;
+  line-height: 18px;
+  font-size  : 16px;
+
+  /* not supported in IE. */
+  caret-color: red;
+}
+
+/* whitespace layout でヘルプを書いているので等角フォントを利用.
+   フォントサイズはモバイルで最低限読みやすいサイズと言われる 16px で.
+*/
+pre {
+  font-family: monospace;
+  font-size  : 16px;
+}
