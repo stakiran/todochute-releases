@@ -4,6 +4,8 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
 ![todochute_image.jpg](img/todochute_image.jpg)
 
 ## リリース
+現在プロトタイプ版を公開中です（データの保存方法など甘い部分があるので、大事なデータの保存には用いないでください or こまめにバックアップすることをオススメします）。
+
 - 2019/03/14 [v0.2.0](tool/v0.2.0/index.html)
   - まだまだ未完成ですが、コンテキストタグとプロジェクトタグを追加できるようにしました。
   - **v0.1.0以前からバージョンアップする場合、いったん Reset を行わないと動作しません**
@@ -31,7 +33,11 @@ Todo.txt と TaskChute を足して二で割ったようなタスク管理ツー
 
 - Windows 7 + Firefox v65
 - Windows 10 + Firefox v65
+
+以下環境でもたぶん動くと思います（簡単に確認しました）。
+
 - MacOS 10.14(Mojave) + Firefox v65
+- Google Chrome
 
 以下環境では動作しません。
 
