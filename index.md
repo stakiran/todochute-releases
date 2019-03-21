@@ -78,9 +78,6 @@ todochute では **データの保存にローカルストレージを使用し�
 
 詳細: [Cookie を有効または無効にする - Firefox ヘルプ](https://support.mozilla.org/ja/kb/enable-and-disable-cookies-website-preferences)
 
-## 注意事項
-- 本サービスの内容に基づく運用結果について、作者は一切の責任を負いかねますので、ご了承ください。
-
 ## 参考
 Todo.txt:
 
@@ -91,6 +88,9 @@ TaskChute2:
 
 - [タスク管理ツール・TaskChute2](https://cyblog.biz/pro/taskchute2/index2.php)
 - [TaskChute スタートアップガイド.pdf](https://cyblog.biz/file/TC2StartupGuide.pdf)
+
+## 注意事項
+- 本サービスの内容に基づく運用結果について、作者は一切の責任を負いかねますので、ご了承ください。
 
 ## 作者
 [stakiran](https://stakiran.github.io/stakiran/)
