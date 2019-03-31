@@ -1,5 +1,11 @@
+---
+layout: default
+title: todochute
+description: (Todo.txt + TaskChute) ÷ 2 ≒ todochute
+---
+
 # todochute
-Todo.txt と TaskChute を足して二で割ったようなタスク管理ツール。
+ブラウザから手軽に使えるタスク管理ツールです。todo.txt のフォーマットに TaskChute のソート機能を混ぜたような使い心地です。
 
 ![todochute_image.jpg](img/todochute_image.jpg)
 
