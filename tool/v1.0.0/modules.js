@@ -528,6 +528,58 @@ DATASTORAGE.DataManager = (function(){
 
 DATASTORAGE.LINEBREAK_FOR_SAVING = '<br>';
 
+// This class to keep 1-level nested structure on the local storage.
+// For avoiding conflict names on the domain.
+//
+// x  {"lines": {}, "config": {}}
+// o  {"rootkey": {"lines": {}, "config": {}} }
+//
+// For example, https://stakiran.github.io/app1/
+// The local storage of this domain is stakiran.github.io,
+// so conflict namespace like this:
+//
+//  - https://stakiran.github.io/app1/
+//  - https://stakiran.github.io/app2/
+//
+// If app1 use 'keyX' and app2 also 'keyY', then...?
+// Must avoid conflict.
+DATASTORAGE.LocalStorageWrapper = (function(){
+    // @param manager A LocalStorageManager instance
+    // @param rootkey A string to use root key
+    var LocalStorageWrapper = function(manager, rootkey){
+        this._manager = manager;
+        this._rootkey = rootkey
+    }
+
+    var p = LocalStorageWrapper.prototype;
+
+    p.add_item = function(k, v){
+        this._storage.setItem(k, v);
+    }
+
+    p.remove_item = function(k){
+        this._storage.removeItem(k);
+    }
+
+    p.reset = function(){
+        this._manager.clear();
+    }
+
+    // @retval null if the key 'k' is not found.
+    // @todo k だけだと config の k なのか lines の k なのかがわからん、ペア指定必要か……
+    p.get_with_key = function(k){
+        var root_item = this.manager.get_with_key(this._rootkey);
+        var root_obj = JSON.parse(root_item);
+        var elm = root_obj[k];
+        if(elm === void 0){
+            return null;
+        }
+        return elm;
+    }
+
+    return LocalStorageWrapper;
+})();
+
 DATASTORAGE.LocalStorageManager = (function(){
     // @param storage_inst a window.localStorage
     var LocalStorageManager = function(storage_inst){
