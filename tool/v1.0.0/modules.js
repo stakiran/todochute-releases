@@ -553,38 +553,6 @@ DATASTORAGE.LocalStorageManager = (function(){
         return Object.keys(ls);
     }
 
-    // @return An array of the object {'key':'...', 'value':'...'}
-    // keys() 列挙のせいか Local Storage の仕様か知らんが
-    // 順番に規則性が見られない（少なくとも追加順ではない）ので
-    // with array 要らんかもなぁ……
-    p.get_all_with_array = function(){
-        var all_keys = this._get_all_keys();
-        var return_values = [];
-        for(var i=0;i<all_keys.length;i++){
-            var curkey = all_keys[i];
-            var curvalue = this.get_with_key(curkey);
-            var return_value = {
-                'key'   : curkey,
-                'value' : curvalue
-            };
-            return_values.push(return_value);
-        }
-        return return_values;
-    }
-
-    // @return An object
-    p.get_all_with_object = function(){
-        var ls = this._storage;
-        var all_keys = Object.keys(ls);
-        var return_values = {};
-        for(var i=0;i<all_keys.length;i++){
-            var curkey = all_keys[i];
-            var curvalue = this.get_with_key(curkey);
-            return_values[curkey] = curvalue;
-        }
-        return return_values;
-    }
-
     // @retval null if the key 'k' is not found.
     p.get_with_key = function(k){
         return this._storage.getItem(k);
