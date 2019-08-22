@@ -432,11 +432,66 @@ DATETIME.Datetime = (function(){
 var DATASTORAGE = DATASTORAGE || {};
 DATASTORAGE.________________start________________ = function(){}
 
-// データ整理
-//   key
-// - lines   : 言わずもがな.
-// - config  : 静的な設定. CONFIG.Config.
-// - context : 動的な設定というか状態情報. カーソル位置くらい?
+/*
+ローカルストレージのデータ構造:
+
+    ドメイン毎に key-value を持つ.
+
+    {
+        'key' : 'value',
+        'key' : 'value',
+        'key' : 'value',
+        ...
+    }
+
+ドメインとは:
+
+    https://stakiran.github.io/app1/
+    https://stakiran.github.io/app2/
+    https://stakiran.github.io/app3/
+
+    ドメインは stakiran.github.io になる.
+    したがって key を app 固有しないと app 間でデータ(というより名前空間)が衝突する.
+
+todochuteのデータ構造:
+
+    まず key として todochute を掘り, その下に todochute 固有のデータをぶら下げる.
+    (v0.4.0 までは直接 lines や config を掘っていた)
+
+    {
+        'todochute' :{
+            'lines' : "\n区切りの文字列データ",
+            'config' : "設定用 object を stringify した json string"
+        }
+    }
+
+より一般的に定義する:
+
+    root, attribute という用語を導入する.
+
+    {
+        'Root Key' :{
+            'Attribute Key' : "data",
+            'Attribute Key' : "data",
+            ...
+        }
+    }
+
+結論として, ローカルストレージ上では以下のようになる.
+
+    ドメイン「 stakiran.github.io」のローカルストレージ
+
+    {
+        'app1 の root key' : '{"app1 の attribute key 1" : "value by string", ...}',
+        'app2 の root key' : '{"app2 の attribute key 1" : "value by string", ...}',
+        ...
+    }
+
+各クラスについて
+
+    LocalStorage          ローカルストレージの key-value を操作する.
+    LocalStorageWrapper   LocalStorage をラップして root/attirbute ベースの操作を提供する.
+*/
 
 // @param storage_inst A window.localStorage
 // @return A DataManager instance.
@@ -450,27 +505,6 @@ DATASTORAGE.DataManager = (function(){
     // @param localstorage_manager A LocalStorageManager instance.
     var DataManager = function(localstorage_manager){
         this._manager = localstorage_manager;
-        // @todo 作り込み必要そう...?
-        /*
-        {
-            'todochute' : {
-                'lines' : {},
-                'config' : {}
-            }
-        }
-        */
-        // ↑ こうする必要があるが, localStorage が key:string, value:string なので
-        //    stringfy 必要。
-        // でも i/f では manager.get_with_key('config') みたいに自然な使い心地にしたい.
-        //
-        // 一段下げる前なら lines と config を別々に独立して set/get できていたが,
-        // 一段下げた後は独立できない.
-        // set 時は常に「全体データを stringfy した string」を set することになる...
-        // ……いや、データ量大したことないし、ええか.
-        //
-        // その他
-        // - バージョンはデータ互換全部壊れちゃうので 0.x.x → 1. にあげちゃう
-        this.KEY_ROOT = 'todochute';
         this.KEY_LINES = 'lines';
         this.KEY_CONFIG = 'config';
     }
@@ -528,21 +562,6 @@ DATASTORAGE.DataManager = (function(){
 
 DATASTORAGE.LINEBREAK_FOR_SAVING = '<br>';
 
-// This class to keep 1-level nested structure on the local storage.
-// For avoiding conflict names on the domain.
-//
-// x  {"lines": {}, "config": {}}
-// o  {"rootkey": {"lines": {}, "config": {}} }
-//
-// For example, https://stakiran.github.io/app1/
-// The local storage of this domain is stakiran.github.io,
-// so conflict namespace like this:
-//
-//  - https://stakiran.github.io/app1/
-//  - https://stakiran.github.io/app2/
-//
-// If app1 use 'keyX' and app2 also 'keyY', then...?
-// Must avoid conflict.
 DATASTORAGE.LocalStorageWrapper = (function(){
     // @param manager A LocalStorageManager instance
     // @param rootkey A string to use root key
@@ -553,28 +572,27 @@ DATASTORAGE.LocalStorageWrapper = (function(){
 
     var p = LocalStorageWrapper.prototype;
 
-    p.add_item = function(k, v){
-        this._storage.setItem(k, v);
+    // @todo わかりづらいので名前変える add_item -> write_item
+    p.add_item = function(attribute_key, value_by_str){
+        var root_jsonstr = this.manager.get_with_key(this._rootkey);
+        var root_obj = JSON.parse(root_jsonstr);
+
+        root_obj[attribute_key] = value_by_str;
+
+        var new_root_jsonstr = JSON.stringify(root_obj);
+        this._manager.setItem(this._rootkey, new_root_jsonstr);
     }
 
-    p.remove_item = function(k){
-        this._storage.removeItem(k);
-    }
-
-    p.reset = function(){
-        this._manager.clear();
-    }
-
-    // @retval null if the key 'k' is not found.
-    // @todo k だけだと config の k なのか lines の k なのかがわからん、ペア指定必要か……
-    p.get_with_key = function(k){
-        var root_item = this.manager.get_with_key(this._rootkey);
-        var root_obj = JSON.parse(root_item);
-        var elm = root_obj[k];
-        if(elm === void 0){
+    // @return A string value
+    // @retval null if the attribute_key is not found.
+    p.get_with_key = function(attribute_key){
+        var root_jsonstr = this.manager.get_with_key(this._rootkey);
+        var root_obj = JSON.parse(root_jsonstr);
+        var value_by_str = root_obj[attribute_key];
+        if(value_by_str === void 0){
             return null;
         }
-        return elm;
+        return value_by_str;
     }
 
     return LocalStorageWrapper;
