@@ -496,15 +496,18 @@ todochuteのデータ構造:
 // @param storage_inst A window.localStorage
 // @return A DataManager instance.
 DATASTORAGE.init_and_get_instance = function(storage_inst){
+    var ROOT_KEY = 'todochute';
+
     var localstorage_manager = new DATASTORAGE.LocalStorageManager(storage_inst);
-    var datamanager = new DATASTORAGE.DataManager(localstorage_manager);
+    var localstorage_wrapper = new DATASTORAGE.LocalStorageWrapper(localstorage_manager, ROOT_KEY);
+    var datamanager = new DATASTORAGE.DataManager(localstorage_wrapper);
     return datamanager;
 }
 
 DATASTORAGE.DataManager = (function(){
-    // @param localstorage_manager A LocalStorageManager instance.
-    var DataManager = function(localstorage_manager){
-        this._manager = localstorage_manager;
+    // @param localstorage_wrapper A LocalStorageWrapper instance.
+    var DataManager = function(localstorage_wrapper){
+        this._manager = localstorage_wrapper;
         this.KEY_LINES = 'lines';
         this.KEY_CONFIG = 'config';
     }
@@ -574,19 +577,26 @@ DATASTORAGE.LocalStorageWrapper = (function(){
 
     // @todo わかりづらいので名前変える add_item -> write_item
     p.add_item = function(attribute_key, value_by_str){
-        var root_jsonstr = this.manager.get_with_key(this._rootkey);
-        var root_obj = JSON.parse(root_jsonstr);
+        var root_jsonstr = this._manager.get_with_key(this._rootkey);
+        var root_obj = {};
+        if(root_jsonstr !== null){
+            root_obj = JSON.parse(root_jsonstr);
+        }
 
         root_obj[attribute_key] = value_by_str;
 
         var new_root_jsonstr = JSON.stringify(root_obj);
-        this._manager.setItem(this._rootkey, new_root_jsonstr);
+        this._manager.add_item(this._rootkey, new_root_jsonstr);
     }
 
     // @return A string value
-    // @retval null if the attribute_key is not found.
+    // @retval null if the attribute_key is not found or no data found.
     p.get_with_key = function(attribute_key){
-        var root_jsonstr = this.manager.get_with_key(this._rootkey);
+        var root_jsonstr = this._manager.get_with_key(this._rootkey);
+        if(root_jsonstr === null){
+            return null;
+        }
+
         var root_obj = JSON.parse(root_jsonstr);
         var value_by_str = root_obj[attribute_key];
         if(value_by_str === void 0){
