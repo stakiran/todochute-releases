@@ -537,7 +537,7 @@ DATASTORAGE.DataManager = (function(){
         var manager = this._manager;
         var key = this.KEY_LINES;
         var value = lines_by_string;
-        manager.add_item(key, value);
+        manager.write_item(key, value);
     }
 
     // @retval null if config is not set me yet.
@@ -557,7 +557,7 @@ DATASTORAGE.DataManager = (function(){
         var key = this.KEY_CONFIG;
         var config_by_str = JSON.stringify(config_obj_you_want_to_save);
         var value = config_by_str;
-        manager.add_item(key, value);
+        manager.write_item(key, value);
     }
 
     return DataManager;
@@ -575,8 +575,7 @@ DATASTORAGE.LocalStorageWrapper = (function(){
 
     var p = LocalStorageWrapper.prototype;
 
-    // @todo わかりづらいので名前変える add_item -> write_item
-    p.add_item = function(attribute_key, value_by_str){
+    p.write_item = function(attribute_key, value_by_str){
         var root_jsonstr = this._manager.get_with_key(this._rootkey);
         var root_obj = {};
         if(root_jsonstr !== null){
