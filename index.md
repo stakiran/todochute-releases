@@ -30,6 +30,10 @@ description: (Todo.txt + TaskChute) ÷ 2 ≒ todochute
 ## リリース
 以下リンクからアクセスして使うことができます。
 
+- 2019/08/26 [v1.0.0](tool/v1.0.0/index.html)
+  - 当方の事情により、内部データ構造に変更を加えてあります（v0.4.0以前とは互換性がありません）
+  - **v0.4.0 と機能的な変更はありません**
+  - **v0.4.0 以前のデータは引き継がれません**
 - 2019/03/31 [v0.4.0](tool/v0.4.0/index.html)
   - Ctrl + S キーによるタスクリストのダウンロードを追加しました
 - 2019/03/21 [v0.3.0](tool/v0.3.0/index.html)
@@ -50,7 +54,7 @@ description: (Todo.txt + TaskChute) ÷ 2 ≒ todochute
 - Windows 7 + Firefox v65
 - Windows 10 + Firefox v65
 
-以下環境でもたぶん動くと思います（簡単に確認しました）。
+以下環境でも部分的には動くと思います（簡単に動作確認しました）。
 
 - MacOS 10.14(Mojave) + Firefox v65
 - Google Chrome
@@ -85,6 +89,8 @@ todochute では **データの保存にローカルストレージを使用し�
 ![howto_enable_localstorage_firefox.jpg](img/howto_enable_localstorage_firefox.jpg)
 
 詳細: [Cookie を有効または無効にする - Firefox ヘルプ](https://support.mozilla.org/ja/kb/enable-and-disable-cookies-website-preferences)
+
+(2019/08/26 追記) ただし「Firefox を閉じたときに Cookie とサイトデータを削除する」を有効にしている場合、Firefox 終了時に todochute のデータも失われます。
 
 ## 参考
 Todo.txt:
